@@ -1,15 +1,34 @@
+using GymAPI.Infra.Database;
+using GymAPI.Infra.Repositories;
+using GymAPI.Infra.Repositories.Interfaces;
+using GymAPI.Providers.Mapper;
+using GymAPI.Providers.Mapper.Interfaces;
 using GymAPI.Services;
-using Namespace;
+using GymAPI.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = builder.Configuration
+    .GetConnectionString("DefaultConnection");
 
 builder.Services.AddControllers();
 
+builder.Services
+    .AddDbContext<APIContext>(options => options
+        .UseSqlServer(connectionString)
+    );
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddScoped<IStudentMapper, StudentMapper>();
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// -------------------------------------------------------------------------- //
 
 var app = builder.Build();
 
