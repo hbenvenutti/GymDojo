@@ -8,6 +8,8 @@ public class StudentRepository : IStudentRepository
 {
     private readonly APIContext _context;
 
+    // ---------------------------------------------------------------------- //
+
     public StudentRepository(APIContext context)
     {
         _context = context;
@@ -24,9 +26,18 @@ public class StudentRepository : IStudentRepository
         return student;
     }
 
+    // ---------------------------------------------------------------------- //
+
     public async Task<Student?> FindById(int id)
     {
         return await _context.Students.FindAsync(id);
+    }
+
+    // ---------------------------------------------------------------------- //
+
+    public ICollection<Student> List()
+    {
+        return _context.Students.ToList();
     }
 }
 

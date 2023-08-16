@@ -15,8 +15,13 @@ public class StudentMapper : IStudentMapper
         _mapper = mapper;
     }
 
+    // ---------------------------------------------------------------------- //
+
     public Student ToStudent(CreateStudentDto dto) => _mapper.Map<Student>(dto);
 
     public ReadStudentDto ToReadDto(Student student) => 
         _mapper.Map<ReadStudentDto>(student);
+
+    public ICollection<ReadStudentDto> ToReadDto(ICollection<Student> students) => 
+        _mapper.Map<ICollection<ReadStudentDto>>(students);
 }

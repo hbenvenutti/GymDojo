@@ -22,11 +22,17 @@ public class StudentController : ControllerBase
     // ---------------------------------------------------------------------- //
 
     [HttpGet]
+    [ProducesResponseType(typeof(ICollection<ReadStudentDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
+
     public IActionResult List()
     {
         try
         {
-            return Ok();
+            var students = _studentService.ListStudents();
+
+            return Ok(students);
         }
 
         catch (Exception exception)
@@ -49,7 +55,7 @@ public class StudentController : ControllerBase
         {
             var student = await _studentService.GetStudent(id);
 
-            return Ok();
+            return Ok(student);
         }
 
         catch (Exception exception)

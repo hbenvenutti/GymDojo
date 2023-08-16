@@ -34,6 +34,8 @@ public class StudentService : IStudentService
         return _studentMapper.ToReadDto(student);
     }
 
+    // ---------------------------------------------------------------------- //
+
     public async Task<ReadStudentDto> GetStudent(int id)
     {
         var student = await _studentRepository.FindById(id)
@@ -41,4 +43,15 @@ public class StudentService : IStudentService
         
         return _studentMapper.ToReadDto(student);
     }
+
+    // ---------------------------------------------------------------------- //
+
+    public ICollection<ReadStudentDto> ListStudents()
+    {
+        var students = _studentRepository.List();
+
+        return _studentMapper.ToReadDto(students);
+    }
+
+    // ---------------------------------------------------------------------- //
 }

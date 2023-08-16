@@ -9,4 +9,6 @@ public interface IStudentMapper
     Student ToStudent(CreateStudentDto dto);
 
     ReadStudentDto ToReadDto(Student student);
+
+    ICollection<ReadStudentDto> ToReadDto(ICollection<Student> students);
 }

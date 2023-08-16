@@ -7,4 +7,5 @@ public interface IStudentService
 {
     Task<ReadStudentDto> CreateStudent(CreateStudentDto studentDto);
     Task<ReadStudentDto> GetStudent(int id);
+    ICollection<ReadStudentDto> ListStudents();
 }
