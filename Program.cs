@@ -25,6 +25,10 @@ builder.Services.AddScoped<IStudentMapper, StudentMapper>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
+builder.Services.AddScoped<ITrainingService, TrainingService>();
+builder.Services.AddScoped<ITrainingMapper, TrainingMapper>();
+builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

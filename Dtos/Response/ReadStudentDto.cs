@@ -1,5 +1,3 @@
-using GymAPI.Models;
-
 namespace GymAPI.Dtos.Response;
 
 public class ReadStudentDto
@@ -18,5 +16,5 @@ public class ReadStudentDto
     public double AbdominalCircumference { get; init; }
     public double ChestCircumference { get; init; }
 
-    public required ICollection<Training> Trainings { get; init; }    
+    public required ICollection<ReadTrainingDto> Trainings { get; init; }    
 }

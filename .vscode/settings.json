@@ -1,3 +1,7 @@
 {
-    "dotnet.defaultSolution": "GymAPI.sln"
+    "dotnet.defaultSolution": "GymAPI.sln",
+    "cSpell.words": [
+        "alunos",
+        "treinos"
+    ]
 }

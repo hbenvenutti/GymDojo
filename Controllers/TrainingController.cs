@@ -7,134 +7,127 @@ using Microsoft.AspNetCore.Mvc;
 namespace GymAPI.Controllers;
 
 [ApiController]
-[Route("alunos")]
-public class StudentController : ControllerBase
+[Route("treinos")]
+public class TrainingController : ControllerBase
 {
-    private readonly IStudentService _studentService;
+    private readonly ITrainingService _trainingService;
 
     // ---------------------------------------------------------------------- //
-    
-    public StudentController(IStudentService studentService)
+
+    public TrainingController(ITrainingService trainingService)
     {
-        _studentService = studentService;
+        _trainingService = trainingService;
     }
 
     // ---------------------------------------------------------------------- //
 
-    [HttpGet]
-    [ProducesResponseType(typeof(ICollection<ReadStudentDto>), StatusCodes.Status200OK)]
+    [HttpGet("/alunos/{id}/treinos")]
+    [ProducesResponseType(typeof(ICollection<ReadTrainingDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
 
-    public IActionResult List()
+    public IActionResult ListByStudent([FromRoute] int id)
     {
         try
         {
-            var students = _studentService.ListStudents();
-
-            return Ok(students);
+            return Ok();
         }
 
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);
+            return ControllerExceptionHandler.HandleException(exception);            
         }
     }
 
     // ---------------------------------------------------------------------- //
 
-    [HttpGet("{id}")]
-    [ProducesResponseType(typeof(ReadStudentDto), StatusCodes.Status200OK)]
+    [HttpGet("{trainingId}")]
+    [ProducesResponseType(typeof(ReadTrainingDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
-    
-    public async Task<IActionResult> GetById([FromRoute] int id)
+
+    public async Task<IActionResult> GetById([FromRoute] int trainingId)
     {
         try
         {
-            var student = await _studentService.GetStudentAsync(id);
-
-            return Ok(student);
+            return Ok();
         }
 
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);
+            return ControllerExceptionHandler.HandleException(exception);            
         }
     }
 
     // ---------------------------------------------------------------------- //
 
     [HttpPost]
-    [ProducesResponseType(typeof(ReadStudentDto), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ReadTrainingDto), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
-    
-    public async Task<IActionResult> Create([FromBody] CreateStudentDto dto)
+
+    public async Task<IActionResult> Create([FromBody] CreateTrainingDto createTrainingDto)
     {
         try
         {
-            var student = await _studentService.CreateStudentAsync(dto);
+            var training = await _trainingService
+                .CreateTrainingAsync(createTrainingDto);
 
             return CreatedAtAction(
                 nameof(GetById), 
-                new { id = student.Id }, 
-                student
+                new { trainingId = training.Id }, 
+                training
             );
         }
-        
+
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);
+            return ControllerExceptionHandler.HandleException(exception);            
         }
     }
 
     // ---------------------------------------------------------------------- //
 
-    [HttpPut("{id}")]
-    [ProducesResponseType(typeof(ReadStudentDto), StatusCodes.Status200OK)]
+    [HttpPut("{trainingId}")]
+    [ProducesResponseType(typeof(ReadTrainingDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
 
     public async Task<IActionResult> Update(
-        [FromRoute] int id,
-        [FromBody] UpdateStudentDto dto
+        [FromRoute] int trainingId, 
+        [FromBody] UpdateTrainingDto updateTrainingDto
     )
     {
         try
         {
-            var student = await _studentService.UpdateStudentAsync(id, dto);
-
-            return Ok(student);
+            return Ok();
         }
 
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);
+            return ControllerExceptionHandler.HandleException(exception);            
         }
     }
 
     // ---------------------------------------------------------------------- //
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{trainingId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
-    
-    public async Task<IActionResult> Delete([FromRoute] int id)
+
+    public async Task<IActionResult> Delete([FromRoute] int trainingId)
     {
         try
         {
-            await _studentService.DeleteStudentAsync(id);
-
             return NoContent();
         }
 
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);
+            return ControllerExceptionHandler.HandleException(exception);            
         }
     }
 }

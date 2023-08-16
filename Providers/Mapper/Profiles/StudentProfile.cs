@@ -12,6 +12,8 @@ public class StudentProfile : Profile
         CreateMap<CreateStudentDto, Student>();
         CreateMap<UpdateStudentDto, Student>();
         CreateMap<UpdateStudentDto, CreateStudentDto>();
-        CreateMap<Student, ReadStudentDto>();
+        
+        CreateMap<Student, ReadStudentDto>()
+            .ForMember(dest => dest.Trainings, opt => opt.MapFrom(src => src.Trainings));
     }
 }

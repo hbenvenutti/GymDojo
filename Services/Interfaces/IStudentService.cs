@@ -5,9 +5,9 @@ namespace GymAPI.Services.Interfaces;
 
 public interface IStudentService
 {
-    Task<ReadStudentDto> CreateStudent(CreateStudentDto studentDto);
-    Task<ReadStudentDto> GetStudent(int id);
+    Task<ReadStudentDto> CreateStudentAsync(CreateStudentDto studentDto);
+    Task<ReadStudentDto> GetStudentAsync(int id);
     ICollection<ReadStudentDto> ListStudents();
-    Task<ReadStudentDto> UpdateStudent(int id, UpdateStudentDto studentDto);
-    Task DeleteStudent(int id);
+    Task<ReadStudentDto> UpdateStudentAsync(int id, UpdateStudentDto studentDto);
+    Task DeleteStudentAsync(int id);
 }

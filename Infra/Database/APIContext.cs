@@ -7,6 +7,7 @@ namespace GymAPI.Infra.Database;
 public class APIContext : DbContext
 {
     public DbSet<Student> Students { get; set; }
+    public DbSet<Training> Trainings { get; set; }
 
     // ---------------------------------------------------------------------- //
 
