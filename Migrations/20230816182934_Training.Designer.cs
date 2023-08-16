@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymAPI.Migrations
 {
     [DbContext(typeof(APIContext))]
-    [Migration("20230816164352_Training")]
+    [Migration("20230816182934_Training")]
     partial class Training
     {
         /// <inheritdoc />
@@ -85,7 +85,7 @@ namespace GymAPI.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Training");
+                    b.ToTable("Trainings");
                 });
 
             modelBuilder.Entity("GymAPI.Models.Training", b =>

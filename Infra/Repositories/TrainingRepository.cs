@@ -19,7 +19,7 @@ public class TrainingRepository : ITrainingRepository
 
     public async Task<Training> Create(Training training)
     {
-        await _context.Trainings.AddAsync(training); 
+        await _context.Trainings.AddAsync(training);
 
         await _context.SaveChangesAsync();
 

@@ -82,7 +82,7 @@ namespace GymAPI.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Training");
+                    b.ToTable("Trainings");
                 });
 
             modelBuilder.Entity("GymAPI.Models.Training", b =>

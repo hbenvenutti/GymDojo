@@ -11,7 +11,7 @@ namespace GymAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Training",
+                name: "Trainings",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -21,9 +21,9 @@ namespace GymAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Training", x => x.Id);
+                    table.PrimaryKey("PK_Trainings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Training_Students_StudentId",
+                        name: "FK_Trainings_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
@@ -31,8 +31,8 @@ namespace GymAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Training_StudentId",
-                table: "Training",
+                name: "IX_Trainings_StudentId",
+                table: "Trainings",
                 column: "StudentId");
         }
 
@@ -40,7 +40,7 @@ namespace GymAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Training");
+                name: "Trainings");
         }
     }
 }
