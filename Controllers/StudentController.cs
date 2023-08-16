@@ -118,10 +118,13 @@ public class StudentController : ControllerBase
     // ---------------------------------------------------------------------- //
 
     [HttpDelete("{id}")]
-    public IActionResult Delete([FromRoute] int id)
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> Delete([FromRoute] int id)
     {
         try
         {
+            await _studentService.DeleteStudent(id);
+
             return NoContent();
         }
 

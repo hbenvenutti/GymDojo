@@ -8,5 +8,6 @@ public interface IStudentRepository
     Task<Student?> FindById(int id);
     ICollection<Student> List();
     Task<Student> Update(Student student);
+    Task Delete(Student student);
     bool Exists(int id);
 }

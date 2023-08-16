@@ -57,5 +57,16 @@ public class StudentRepository : IStudentRepository
     {
         return _context.Students.Any(student => student.Id == id);
     }
+
+    // ---------------------------------------------------------------------- //
+
+    public async Task Delete(Student student)
+    {
+        _context.Students.Remove(student);
+
+        await _context.SaveChangesAsync();
+
+        return;
+    }
 }
 

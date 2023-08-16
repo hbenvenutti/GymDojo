@@ -9,4 +9,5 @@ public interface IStudentService
     Task<ReadStudentDto> GetStudent(int id);
     ICollection<ReadStudentDto> ListStudents();
     Task<ReadStudentDto> UpdateStudent(int id, UpdateStudentDto studentDto);
+    Task DeleteStudent(int id);
 }

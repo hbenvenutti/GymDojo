@@ -68,4 +68,14 @@ public class StudentService : IStudentService
 
         return _studentMapper.ToReadDto(student);
     }
+
+    // ---------------------------------------------------------------------- //
+
+    public async Task DeleteStudent(int id)
+    {
+        var student = await _studentRepository.FindById(id)
+            ?? throw new StudentNotFoundException();
+
+        await _studentRepository.Delete(student);
+    }
 }
