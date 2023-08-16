@@ -18,5 +18,5 @@ public class ReadStudentDto
     public double AbdominalCircumference { get; init; }
     public double ChestCircumference { get; init; }
 
-    public ICollection<Training> Trainings { get; init; }    
+    public required ICollection<Training> Trainings { get; init; }    
 }
