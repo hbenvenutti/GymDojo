@@ -25,9 +25,9 @@ public class StudentService : IStudentService
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<ReadStudentDto> CreateStudent(CreateStudentDto studentDto)
+    public async Task<ReadStudentDto> CreateStudent(CreateStudentDto dto)
     {
-        var student = _studentMapper.ToStudent(studentDto);
+        var student = _studentMapper.ToStudent(dto);
 
         student = await _studentRepository.Create(student);
 
@@ -54,4 +54,18 @@ public class StudentService : IStudentService
     }
 
     // ---------------------------------------------------------------------- //
+
+    public async Task<ReadStudentDto> UpdateStudent(int id, UpdateStudentDto dto)
+    {
+        var student = await _studentRepository.FindById(id);
+
+        if (student is null) 
+            return await CreateStudent(_studentMapper.ToCreateDto(dto));
+
+        student = _studentMapper.UpdateStudent(dto, student);
+
+        await _studentRepository.Update(student);
+
+        return _studentMapper.ToReadDto(student);
+    }
 }

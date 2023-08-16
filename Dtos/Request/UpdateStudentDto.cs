@@ -1,6 +1,6 @@
 namespace GymAPI.Dtos.Request;
 
-public class CreateStudentDto
+public class UpdateStudentDto
 {
     public required string Name { get; init; }
     public required string Gender { get; init; }

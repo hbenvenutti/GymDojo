@@ -19,9 +19,17 @@ public class StudentMapper : IStudentMapper
 
     public Student ToStudent(CreateStudentDto dto) => _mapper.Map<Student>(dto);
 
+    public Student ToStudent(UpdateStudentDto dto) => _mapper.Map<Student>(dto);
+
+    public Student UpdateStudent(UpdateStudentDto dto, Student student) =>
+        _mapper.Map(dto, student);
+
+    public CreateStudentDto ToCreateDto(UpdateStudentDto dto) =>
+        _mapper.Map<CreateStudentDto>(dto);
+
     public ReadStudentDto ToReadDto(Student student) => 
         _mapper.Map<ReadStudentDto>(student);
 
-    public ICollection<ReadStudentDto> ToReadDto(ICollection<Student> students) => 
+    public ICollection<ReadStudentDto> ToReadDto(ICollection<Student> students) =>
         _mapper.Map<ICollection<ReadStudentDto>>(students);
 }

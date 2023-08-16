@@ -39,5 +39,23 @@ public class StudentRepository : IStudentRepository
     {
         return _context.Students.ToList();
     }
+
+    // ---------------------------------------------------------------------- //
+
+    public async Task<Student> Update(Student student)
+    {
+        _context.Students.Update(student);
+
+        await _context.SaveChangesAsync();
+
+        return student;
+    }
+
+    // ---------------------------------------------------------------------- //
+
+    public bool Exists(int id)
+    {
+        return _context.Students.Any(student => student.Id == id);
+    }
 }
 

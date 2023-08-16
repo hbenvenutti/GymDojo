@@ -93,11 +93,20 @@ public class StudentController : ControllerBase
     // ---------------------------------------------------------------------- //
 
     [HttpPut("{id}")]
-    public IActionResult Update([FromRoute] int id)
+    [ProducesResponseType(typeof(ReadStudentDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
+
+    public async Task<IActionResult> Update(
+        [FromRoute] int id,
+        [FromBody] UpdateStudentDto dto
+    )
     {
         try
         {
-            return Ok();
+            var student = await _studentService.UpdateStudent(id, dto);
+
+            return Ok(student);
         }
 
         catch (Exception exception)
