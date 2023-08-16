@@ -1,7 +1,8 @@
 using GymAPI.Dtos.Request;
+using GymAPI.Dtos.Response;
 using GymAPI.Handlers;
+using GymAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Namespace;
 
 namespace GymAPI.Controllers;
 
@@ -11,6 +12,8 @@ public class StudentController : ControllerBase
 {
     private readonly IStudentService _studentService;
 
+    // ---------------------------------------------------------------------- //
+    
     public StudentController(IStudentService studentService)
     {
         _studentService = studentService;
@@ -35,10 +38,17 @@ public class StudentController : ControllerBase
     // ---------------------------------------------------------------------- //
 
     [HttpGet("{id}")]
-    public IActionResult GetById([FromRoute] int id)
+    [ProducesResponseType(typeof(ReadStudentDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
+    
+    public async Task<IActionResult> GetById([FromRoute] int id)
     {
         try
         {
+            var student = await _studentService.GetStudent(id);
+
             return Ok();
         }
 
@@ -51,11 +61,15 @@ public class StudentController : ControllerBase
     // ---------------------------------------------------------------------- //
 
     [HttpPost]
-    public IActionResult Create([FromBody] CreateStudentDto dto)
+    [ProducesResponseType(typeof(ReadStudentDto), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
+    
+    public async Task<IActionResult> Create([FromBody] CreateStudentDto dto)
     {
         try
         {
-            var student = _studentService.CreateStudent(dto);
+            var student = await _studentService.CreateStudent(dto);
 
             return CreatedAtAction(
                 nameof(GetById), 
