@@ -1,6 +1,9 @@
 using GymAPI.Dtos.Request;
 using GymAPI.Dtos.Response;
-using Namespace;
+using GymAPI.Exceptions;
+using GymAPI.Infra.Repositories.Interfaces;
+using GymAPI.Providers.Mapper.Interfaces;
+using GymAPI.Services.Interfaces;
 
 namespace GymAPI.Services;
 
@@ -8,6 +11,8 @@ public class StudentService : IStudentService
 {
     private readonly IStudentRepository _studentRepository;
     private readonly IStudentMapper _studentMapper;
+
+    // ---------------------------------------------------------------------- //
 
     public StudentService(
         IStudentRepository studentRepository, 
@@ -18,12 +23,22 @@ public class StudentService : IStudentService
         _studentMapper = studentMapper;
     }
 
-    public ReadStudentDto CreateStudent(CreateStudentDto studentDto)
+    // ---------------------------------------------------------------------- //
+
+    public async Task<ReadStudentDto> CreateStudent(CreateStudentDto studentDto)
     {
-        var student = _studentMapper.Map(studentDto);
+        var student = _studentMapper.ToStudent(studentDto);
 
-        _studentRepository.Create(student);
+        student = await _studentRepository.Create(student);
 
-        return _studentMapper.Map(student);
+        return _studentMapper.ToReadDto(student);
+    }
+
+    public async Task<ReadStudentDto> GetStudent(int id)
+    {
+        var student = await _studentRepository.FindById(id)
+            ?? throw new StudentNotFoundException();
+        
+        return _studentMapper.ToReadDto(student);
     }
 }

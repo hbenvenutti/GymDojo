@@ -1,9 +1,10 @@
 using GymAPI.Dtos.Request;
 using GymAPI.Dtos.Response;
 
-namespace Namespace;
+namespace GymAPI.Services.Interfaces;
 
 public interface IStudentService
 {
-    ReadStudentDto CreateStudent(CreateStudentDto studentDto);
+    Task<ReadStudentDto> CreateStudent(CreateStudentDto studentDto);
+    Task<ReadStudentDto> GetStudent(int id);
 }
