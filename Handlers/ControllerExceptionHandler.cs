@@ -1,3 +1,4 @@
+using GymAPI.Dtos.Response;
 using GymAPI.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,12 +8,14 @@ public static class ControllerExceptionHandler
 {
     public static IActionResult HandleException(Exception exception)
     {
+        ErrorDto errorDto = new(exception.Message);
+
         if (exception is NotFoundException) 
-            return new NotFoundObjectResult(exception.Message);
+            return new NotFoundObjectResult(errorDto);
 
         if (exception is BadRequestException) 
-            return new BadRequestObjectResult(exception.Message);
+            return new BadRequestObjectResult(errorDto);
 
-        return new ObjectResult(exception.Message) { StatusCode = 500 };
+        return new ObjectResult(errorDto) { StatusCode = 500 };
     }
 }
