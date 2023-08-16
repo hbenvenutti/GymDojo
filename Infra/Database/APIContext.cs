@@ -14,6 +14,7 @@ public class APIContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new StudentDBConfig());
+        modelBuilder.ApplyConfiguration(new StudentDbConfig());
+        modelBuilder.ApplyConfiguration(new TrainingDbConfig());
     }
 }

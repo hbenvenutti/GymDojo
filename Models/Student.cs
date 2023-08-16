@@ -18,13 +18,13 @@ public class Student
     public double AbdomenCircumference { get; set; }
     public double ChestCircumference { get; set; }
 
-    // [JsonIgnore]
-    // public ICollection<Training> Trainings { get; set; }
+    [JsonIgnore]
+    public ICollection<Training> Trainings { get; set; }
 
     // ---------------------------------------------------------------------- //
 
-    // public Student()
-    // {
-    //     Trainings = new List<Training>();
-    // }
+    public Student()
+    {
+        Trainings = new List<Training>();
+    }
 }

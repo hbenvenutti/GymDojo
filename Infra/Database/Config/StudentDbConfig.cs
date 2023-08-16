@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GymAPI.Infra.Database.Config;
 
-public class StudentDBConfig : IEntityTypeConfiguration<Student>
+public class StudentDbConfig : IEntityTypeConfiguration<Student>
 {
     public void Configure(EntityTypeBuilder<Student> builder)
     {
