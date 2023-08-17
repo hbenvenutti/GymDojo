@@ -8,6 +8,7 @@ public class APIContext : DbContext
 {
     public DbSet<Student> Students { get; set; }
     public DbSet<Training> Trainings { get; set; }
+    public DbSet<Exercise> Exercises { get; set; }
 
     // ---------------------------------------------------------------------- //
 
@@ -17,5 +18,6 @@ public class APIContext : DbContext
     {
         modelBuilder.ApplyConfiguration(new StudentDbConfig());
         modelBuilder.ApplyConfiguration(new TrainingDbConfig());
+        modelBuilder.ApplyConfiguration(new ExerciseDbConfig());
     }
 }
