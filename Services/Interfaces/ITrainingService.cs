@@ -10,4 +10,5 @@ public interface ITrainingService
     Task<IReadTrainingDto> GetByIdAsync(int trainingId);
     ICollection<ReadTrainingDto> ListByStudent(int studentId);
     Task<IReadTrainingDto> UpdateTrainingAsync(int trainingId, UpdateTrainingDto trainingDto);
+    Task DeleteTrainingAsync(int trainingId);
 }

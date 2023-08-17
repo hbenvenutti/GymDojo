@@ -76,4 +76,15 @@ public class TrainingRepository : ITrainingRepository
 
         return training;
     }
+
+    // ---------------------------------------------------------------------- //
+
+    public async Task DeleteAsync(Training training)
+    {
+        _context
+            .Trainings
+            .Remove(training);
+
+        await _context.SaveChangesAsync();
+    }
 }

@@ -106,7 +106,7 @@ public class TrainingController : ControllerBase
         {
             var training = await _trainingService
                 .UpdateTrainingAsync(trainingId, updateTrainingDto);
-                
+
             return Ok(training);
         }
 
@@ -128,6 +128,8 @@ public class TrainingController : ControllerBase
     {
         try
         {
+            await _trainingService.DeleteTrainingAsync(trainingId);
+            
             return NoContent();
         }
 

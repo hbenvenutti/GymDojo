@@ -8,4 +8,5 @@ public interface ITrainingRepository
     Task<Training?> FindByIdAsync(int trainingId);
     ICollection<Training> FindByStudent(int studentId);
     Task<Training> UpdateAsync(Training training);
+    Task DeleteAsync(Training training);
 }

@@ -84,4 +84,14 @@ public class TrainingService : ITrainingService
 
         return trainingDto;
     }
+
+    // ---------------------------------------------------------------------- //
+
+    public async Task DeleteTrainingAsync(int trainingId)
+    {
+        var training = await _trainingRepository.FindByIdAsync(trainingId)
+            ?? throw new TrainingNotFoundException();
+
+        await _trainingRepository.DeleteAsync(training);
+    }
 }
