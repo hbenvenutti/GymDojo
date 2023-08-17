@@ -1,5 +1,6 @@
 using GymAPI.Dtos.Request;
 using GymAPI.Dtos.Response;
+using GymAPI.Dtos.Response.interfaces;
 using GymAPI.Handlers;
 using GymAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ public class TrainingController : ControllerBase
     // ---------------------------------------------------------------------- //
 
     [HttpGet("/alunos/{id}/treinos")]
-    [ProducesResponseType(typeof(ICollection<ReadTrainingDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<IReadTrainingDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
 
@@ -30,7 +31,8 @@ public class TrainingController : ControllerBase
     {
         try
         {
-            return Ok();
+            var trainings = _trainingService.ListByStudent(id);
+            return Ok(trainings);
         }
 
         catch (Exception exception)
@@ -42,7 +44,7 @@ public class TrainingController : ControllerBase
     // ---------------------------------------------------------------------- //
 
     [HttpGet("{trainingId}")]
-    [ProducesResponseType(typeof(ReadTrainingDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadTrainingDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
@@ -64,7 +66,7 @@ public class TrainingController : ControllerBase
     // ---------------------------------------------------------------------- //
 
     [HttpPost]
-    [ProducesResponseType(typeof(ReadTrainingDto), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(IReadTrainingDto), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
 
@@ -91,7 +93,7 @@ public class TrainingController : ControllerBase
     // ---------------------------------------------------------------------- //
 
     [HttpPut("{trainingId}")]
-    [ProducesResponseType(typeof(ReadTrainingDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadTrainingDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
 
@@ -102,7 +104,10 @@ public class TrainingController : ControllerBase
     {
         try
         {
-            return Ok();
+            var training = await _trainingService
+                .UpdateTrainingAsync(trainingId, updateTrainingDto);
+                
+            return Ok(training);
         }
 
         catch (Exception exception)

@@ -46,4 +46,34 @@ public class TrainingRepository : ITrainingRepository
             .Include(training => training.Student)
             .FirstOrDefaultAsync(training => training.Id == trainingId);
     }
+
+    // ---------------------------------------------------------------------- //
+
+    public ICollection<Training> FindByStudent(int studentId)
+    {
+        return _context
+            .Trainings
+            // .Include(training => training.Student)
+            .Where(training => training.StudentId == studentId)
+            .ToList();
+    }
+
+    // ---------------------------------------------------------------------- //
+
+    public async Task<Training> UpdateAsync(Training training)
+    {
+        var studentExists = await _context
+            .Students
+            .AnyAsync(student => student.Id == training.StudentId);
+        
+        if (!studentExists) throw new InexistentStudentException();
+
+        _context
+            .Trainings
+            .Update(training);
+
+        await _context.SaveChangesAsync();
+
+        return training;
+    }
 }

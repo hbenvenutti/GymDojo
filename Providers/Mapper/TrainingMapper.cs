@@ -31,10 +31,15 @@ public class TrainingMapper : ITrainingMapper
 
     // ---------------------------------------------------------------------- //
 
+    public CreateTrainingDto ToCreateDto(UpdateTrainingDto dto) =>
+        _mapper.Map<CreateTrainingDto>(dto);
+
+    // ---------------------------------------------------------------------- //
+
     public IReadTrainingDto ToReadDto(Training training) => 
         _mapper.Map<ReadTrainingDto>(training);
 
-    public ICollection<ReadTrainingDto> ToReadDto(ICollection<Training> trainings) => 
+    public ICollection<ReadTrainingDto> ToReadDtoCollection(ICollection<Training> trainings) => 
         _mapper.Map<ICollection<ReadTrainingDto>>(trainings);
 
     // ---------------------------------------------------------------------- //
@@ -42,7 +47,7 @@ public class TrainingMapper : ITrainingMapper
     public IReadTrainingDto ToReadDtoWithRelations(Training training) =>
         _mapper.Map<ReadTrainingDtoWithRelations>(training);
 
-    public ICollection<ReadTrainingDtoWithRelations> ToReadDtoWithRelations(
+    public ICollection<ReadTrainingDtoWithRelations> ToReadDtoWithRelationsCollection(
         ICollection<Training> trainings
     ) => _mapper.Map<ICollection<ReadTrainingDtoWithRelations>>(trainings);
 }

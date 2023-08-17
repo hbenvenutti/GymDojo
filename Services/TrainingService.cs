@@ -1,4 +1,5 @@
 using GymAPI.Dtos.Request;
+using GymAPI.Dtos.Response;
 using GymAPI.Dtos.Response.interfaces;
 using GymAPI.Exceptions;
 using GymAPI.Infra.Repositories.Interfaces;
@@ -46,6 +47,38 @@ public class TrainingService : ITrainingService
     {
         var training = await _trainingRepository.FindByIdAsync(trainingId)
             ?? throw new TrainingNotFoundException();
+
+        var trainingDto =_trainingMapper.ToReadDtoWithRelations(training);
+
+        return trainingDto;
+    }
+
+    // ---------------------------------------------------------------------- //
+
+    public ICollection<ReadTrainingDto> ListByStudent(int studentId)
+    {
+        var trainings = _trainingRepository.FindByStudent(studentId);
+
+        var trainingsDto =_trainingMapper.ToReadDtoCollection(trainings);
+
+        return trainingsDto;
+    }
+
+    // ---------------------------------------------------------------------- //
+
+    public async Task<IReadTrainingDto> UpdateTrainingAsync(
+        int trainingId, 
+        UpdateTrainingDto updateDto
+    )
+    {
+        var training = await _trainingRepository.FindByIdAsync(trainingId);
+
+        if (training is null)
+            return await CreateTrainingAsync(_trainingMapper.ToCreateDto(updateDto));
+            
+        training = _trainingMapper.ToTraining(updateDto, training);
+
+        training = await _trainingRepository.UpdateAsync(training);
 
         var trainingDto =_trainingMapper.ToReadDtoWithRelations(training);
 

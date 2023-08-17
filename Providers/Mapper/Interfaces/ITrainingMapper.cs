@@ -11,9 +11,11 @@ public interface ITrainingMapper
     Training ToTraining(UpdateTrainingDto dto);
     Training ToTraining(UpdateTrainingDto dto, Training training);
 
+    CreateTrainingDto ToCreateDto(UpdateTrainingDto dto);
+
     IReadTrainingDto ToReadDto(Training training);
-    ICollection<ReadTrainingDto> ToReadDto(ICollection<Training> trainings);
+    ICollection<ReadTrainingDto> ToReadDtoCollection(ICollection<Training> trainings);
 
     IReadTrainingDto ToReadDtoWithRelations(Training training);
-    ICollection<ReadTrainingDtoWithRelations> ToReadDtoWithRelations(ICollection<Training> trainings);
+    ICollection<ReadTrainingDtoWithRelations> ToReadDtoWithRelationsCollection(ICollection<Training> trainings);
 }
