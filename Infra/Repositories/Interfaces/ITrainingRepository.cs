@@ -4,5 +4,6 @@ namespace GymAPI.Infra.Repositories.Interfaces;
 
 public interface ITrainingRepository
 {
-    Task<Training> Create(Training training);
+    Task<Training> CreateAsync(Training training);
+    Task<Training?> FindByIdAsync(int trainingId);
 }

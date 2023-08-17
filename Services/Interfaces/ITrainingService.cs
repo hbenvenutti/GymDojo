@@ -1,9 +1,10 @@
 using GymAPI.Dtos.Request;
-using GymAPI.Dtos.Response;
+using GymAPI.Dtos.Response.interfaces;
 
 namespace GymAPI.Services.Interfaces;
 
 public interface ITrainingService
 {
-    Task<ReadTrainingDto> CreateTrainingAsync(CreateTrainingDto trainingDto);
+    Task<IReadTrainingDto> CreateTrainingAsync(CreateTrainingDto trainingDto);
+    Task<IReadTrainingDto> GetByIdAsync(int trainingId);
 }

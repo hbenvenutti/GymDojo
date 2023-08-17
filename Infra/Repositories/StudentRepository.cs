@@ -1,6 +1,7 @@
 using GymAPI.Infra.Database;
 using GymAPI.Infra.Repositories.Interfaces;
 using GymAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GymAPI.Infra.Repositories;
 
@@ -37,7 +38,10 @@ public class StudentRepository : IStudentRepository
 
     public ICollection<Student> List()
     {
-        return _context.Students.ToList();
+        return _context
+            .Students
+            .Include(student => student.Trainings)
+            .ToList();
     }
 
     // ---------------------------------------------------------------------- //

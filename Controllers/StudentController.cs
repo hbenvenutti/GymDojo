@@ -1,5 +1,6 @@
 using GymAPI.Dtos.Request;
 using GymAPI.Dtos.Response;
+using GymAPI.Dtos.Response.interfaces;
 using GymAPI.Handlers;
 using GymAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ public class StudentController : ControllerBase
     // ---------------------------------------------------------------------- //
 
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<ReadStudentDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<IReadStudentDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
 
@@ -44,7 +45,7 @@ public class StudentController : ControllerBase
     // ---------------------------------------------------------------------- //
 
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(ReadStudentDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadStudentDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
@@ -67,7 +68,7 @@ public class StudentController : ControllerBase
     // ---------------------------------------------------------------------- //
 
     [HttpPost]
-    [ProducesResponseType(typeof(ReadStudentDto), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(IReadStudentDto), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
     
@@ -93,7 +94,7 @@ public class StudentController : ControllerBase
     // ---------------------------------------------------------------------- //
 
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(ReadStudentDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadStudentDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
 

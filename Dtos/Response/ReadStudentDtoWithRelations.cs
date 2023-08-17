@@ -2,7 +2,7 @@ using GymAPI.Dtos.Response.interfaces;
 
 namespace GymAPI.Dtos.Response;
 
-public class ReadStudentDto : IReadStudentDto
+public class ReadStudentDtoWithRelations : IReadStudentDto
 {
     public int Id { get; init; }
 
@@ -17,4 +17,7 @@ public class ReadStudentDto : IReadStudentDto
     public double WaistCircumference { get; init; }
     public double AbdominalCircumference { get; init; }
     public double ChestCircumference { get; init; }
+
+    public required ICollection<ReadTrainingDto> Trainings { get; set; }    
+
 }

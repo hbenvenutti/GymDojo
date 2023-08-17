@@ -15,7 +15,13 @@ public class TrainingProfile : Profile
 
         CreateMap<UpdateTrainingDto, CreateTrainingDto>();
 
-        CreateMap<Training, ReadTrainingDto>()
-            .ForMember(dest => dest.Student, opt => opt.MapFrom(src => src.Student));
+        CreateMap<Training, ReadTrainingDtoWithRelations>()
+            .ForMember(
+                dest => dest.Student, 
+                opt => opt.MapFrom(src => src.Student)
+            );
+
+        CreateMap<Training, ReadTrainingDto>();
+        
     }
 }

@@ -51,7 +51,8 @@ public class TrainingController : ControllerBase
     {
         try
         {
-            return Ok();
+            var training = await _trainingService.GetByIdAsync(trainingId);
+            return Ok(training);
         }
 
         catch (Exception exception)

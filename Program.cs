@@ -12,8 +12,6 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration
     .GetConnectionString("DefaultConnection");
 
-builder.Services.AddControllers();
-
 builder.Services
     .AddDbContext<APIContext>(options => options
         .UseSqlServer(connectionString)
@@ -28,6 +26,8 @@ builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ITrainingService, TrainingService>();
 builder.Services.AddScoped<ITrainingMapper, TrainingMapper>();
 builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
+
+builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

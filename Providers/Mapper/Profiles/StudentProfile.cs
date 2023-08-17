@@ -13,7 +13,11 @@ public class StudentProfile : Profile
         CreateMap<UpdateStudentDto, Student>();
         CreateMap<UpdateStudentDto, CreateStudentDto>();
         
-        CreateMap<Student, ReadStudentDto>()
-            .ForMember(dest => dest.Trainings, opt => opt.MapFrom(src => src.Trainings));
+        CreateMap<Student, ReadStudentDtoWithRelations>()
+            .ForMember(
+                dest => dest.Trainings, 
+                opt => opt.MapFrom(src => src.Trainings));
+        
+        CreateMap<Student, ReadStudentDto>();
     }
 }
