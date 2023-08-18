@@ -39,5 +39,27 @@ public class ExerciseController : ControllerBase
             return ControllerExceptionHandler.HandleException(exception);
         }
     }
-}
 
+    // ---------------------------------------------------------------------- //
+
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(IReadExerciseDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
+
+    public async Task<IActionResult> GetById([FromRoute] int id)
+    {
+        try
+        {
+            var exercise = await _exerciseService.GetExerciseAsync(id);
+
+            return Ok(exercise);
+        }
+
+        catch (Exception exception)
+        {
+            return ControllerExceptionHandler.HandleException(exception);
+        }
+    }
+}

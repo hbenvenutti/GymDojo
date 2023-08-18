@@ -23,4 +23,13 @@ public class ExerciseRepository : IExerciseRepository
 
         return exercises;
     }
+
+    // ---------------------------------------------------------------------- //
+
+    public async Task<Exercise?> FindById(int id)
+    {
+        var exercise = await _context.Exercises.FindAsync(id);
+
+        return exercise;
+    }
 }
