@@ -27,6 +27,10 @@ builder.Services.AddScoped<ITrainingService, TrainingService>();
 builder.Services.AddScoped<ITrainingMapper, TrainingMapper>();
 builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
 
+builder.Services.AddScoped<IExerciseService, ExerciseService>();
+builder.Services.AddScoped<IExerciseMapper, ExerciseMapper>();
+builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();

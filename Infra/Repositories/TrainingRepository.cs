@@ -53,7 +53,6 @@ public class TrainingRepository : ITrainingRepository
     {
         return _context
             .Trainings
-            // .Include(training => training.Student)
             .Where(training => training.StudentId == studentId)
             .ToList();
     }
@@ -72,7 +71,8 @@ public class TrainingRepository : ITrainingRepository
             .Trainings
             .Update(training);
 
-        await _context.SaveChangesAsync();
+        await _context
+            .SaveChangesAsync();
 
         return training;
     }
