@@ -10,6 +10,8 @@ public class ExerciseProfile : Profile
     public ExerciseProfile()
     {
         CreateMap<CreateExerciseDto, Exercise>();
+        CreateMap<UpdateExerciseDto, Exercise>();
+        CreateMap<UpdateExerciseDto, CreateExerciseDto>();
         CreateMap<Exercise, ReadExerciseDto>();
     }
 }

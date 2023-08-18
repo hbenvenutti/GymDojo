@@ -8,7 +8,10 @@ namespace GymAPI.Providers.Mapper.Interfaces;
 public interface IExerciseMapper
 {
     Exercise ToModel(CreateExerciseDto createExerciseDto);
-    
+    Exercise ToModel(UpdateExerciseDto updateExerciseDto);
+    Exercise ToModel(UpdateExerciseDto updateExerciseDto, Exercise exercise);
+    CreateExerciseDto ToCreateDto(UpdateExerciseDto updateExerciseDto);
+
     IReadExerciseDto ToReadDto(Exercise exercise);
     ICollection<ReadExerciseDto> ToReadDtoCollection(ICollection<Exercise> exercises);
 }

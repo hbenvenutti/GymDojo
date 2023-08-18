@@ -23,6 +23,16 @@ public class ExerciseMapper : IExerciseMapper
     public Exercise ToModel(CreateExerciseDto createExerciseDto) => 
         _mapper.Map<Exercise>(createExerciseDto);
 
+    public Exercise ToModel(UpdateExerciseDto updateExerciseDto) =>
+        _mapper.Map<Exercise>(updateExerciseDto);
+
+    public Exercise ToModel(UpdateExerciseDto updateExerciseDto, Exercise exercise) =>
+        _mapper.Map(updateExerciseDto, exercise);
+
+    public CreateExerciseDto ToCreateDto(
+        UpdateExerciseDto updateExerciseDto
+    ) => _mapper.Map<CreateExerciseDto>(updateExerciseDto);
+
     // ---------------------------------------------------------------------- //
 
     public IReadExerciseDto ToReadDto(Exercise exercise) => 

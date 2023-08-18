@@ -61,4 +61,27 @@ public class ExerciseService : IExerciseService
 
         return exerciseDto;
     }
+
+    // ---------------------------------------------------------------------- //
+
+    public async Task<IReadExerciseDto> UpdateExerciseAsync(
+        int id, 
+        UpdateExerciseDto updateExerciseDto
+    )
+    {
+        var exercise = await _exerciseRepository.FindById(id);
+
+        if (exercise is null) 
+            return await CreateExerciseAsync(
+                _exerciseMapper.ToCreateDto(updateExerciseDto)
+            );
+        
+        exercise = _exerciseMapper.ToModel(updateExerciseDto, exercise);
+        
+        exercise = await _exerciseRepository.Update(exercise);
+        
+        var exerciseDto = _exerciseMapper.ToReadDto(exercise);
+
+        return exerciseDto;
+    }
 }

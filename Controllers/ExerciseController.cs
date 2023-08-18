@@ -92,4 +92,30 @@ public class ExerciseController : ControllerBase
             return ControllerExceptionHandler.HandleException(exception);
         }
     }
+
+    // ---------------------------------------------------------------------- //
+
+    [HttpPut("{id}")]
+    [ProducesResponseType(typeof(IReadExerciseDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
+
+    public async Task<IActionResult> UpdateExercise(
+        [FromRoute] int id,
+        [FromBody] UpdateExerciseDto updateExerciseDto
+    )
+    {
+        try
+        {
+            var exercise = await _exerciseService
+                .UpdateExerciseAsync(id, updateExerciseDto);
+
+            return Ok(exercise);
+        }
+
+        catch (Exception exception)
+        {
+            return ControllerExceptionHandler.HandleException(exception);
+        }
+    }
 }
