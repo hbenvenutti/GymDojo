@@ -52,4 +52,15 @@ public class ExerciseRepository : IExerciseRepository
 
         return exercise;
     }
+
+    // ---------------------------------------------------------------------- //
+
+    public async Task Delete(Exercise exercise)
+    {
+        _context.Exercises.Remove(exercise);
+
+        await _context.SaveChangesAsync();
+
+        return;
+    }
 }

@@ -84,4 +84,16 @@ public class ExerciseService : IExerciseService
 
         return exerciseDto;
     }
+
+    // ---------------------------------------------------------------------- //
+
+    public async Task DeleteExerciseAsync(int id)
+    {
+        var exercise = await _exerciseRepository.FindById(id) 
+            ?? throw new ExerciseNotFoundException();
+        
+        await _exerciseRepository.Delete(exercise);
+
+        return;
+    }
 }

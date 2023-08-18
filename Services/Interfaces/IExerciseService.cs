@@ -10,4 +10,5 @@ public interface IExerciseService
     Task<IReadExerciseDto> GetExerciseAsync(int id);
     Task<IReadExerciseDto> CreateExerciseAsync(CreateExerciseDto createExerciseDto);
     Task<IReadExerciseDto> UpdateExerciseAsync(int id, UpdateExerciseDto updateExerciseDto);
+    Task DeleteExerciseAsync(int id);
 }

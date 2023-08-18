@@ -118,4 +118,25 @@ public class ExerciseController : ControllerBase
             return ControllerExceptionHandler.HandleException(exception);
         }
     }
+
+    // ---------------------------------------------------------------------- //
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(IReadExerciseDto), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
+
+    public async Task<IActionResult> DeleteExercise([FromRoute] int id)
+    {
+        try
+        {
+            await _exerciseService.DeleteExerciseAsync(id);
+
+            return NoContent();
+        }
+
+        catch (Exception exception)
+        {
+            return ControllerExceptionHandler.HandleException(exception);
+        }
+    }
 }

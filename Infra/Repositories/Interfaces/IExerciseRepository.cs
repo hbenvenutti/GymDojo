@@ -8,4 +8,5 @@ public interface IExerciseRepository
     Task<Exercise?> FindById(int id);
     Task<Exercise> Create(Exercise exercise);
     Task<Exercise> Update(Exercise exercise);
+    Task Delete(Exercise exercise);
 }
