@@ -32,4 +32,14 @@ public class ExerciseRepository : IExerciseRepository
 
         return exercise;
     }
+
+    // ---------------------------------------------------------------------- //
+
+    public async Task<Exercise> Create(Exercise exercise)
+    {
+        await _context.Exercises.AddAsync(exercise);
+        await _context.SaveChangesAsync();
+
+        return exercise;
+    }
 }

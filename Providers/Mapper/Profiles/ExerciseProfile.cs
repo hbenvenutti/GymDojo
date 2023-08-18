@@ -1,4 +1,5 @@
 using AutoMapper;
+using GymAPI.Dtos.Request;
 using GymAPI.Dtos.Response;
 using GymAPI.Models;
 
@@ -8,6 +9,7 @@ public class ExerciseProfile : Profile
 {
     public ExerciseProfile()
     {
+        CreateMap<CreateExerciseDto, Exercise>();
         CreateMap<Exercise, ReadExerciseDto>();
     }
 }

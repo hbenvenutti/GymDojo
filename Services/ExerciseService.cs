@@ -1,3 +1,4 @@
+using GymAPI.Dtos.Request;
 using GymAPI.Dtos.Response;
 using GymAPI.Dtos.Response.interfaces;
 using GymAPI.Exceptions;
@@ -40,6 +41,21 @@ public class ExerciseService : IExerciseService
     {
         var exercise = await _exerciseRepository.FindById(id) 
             ?? throw new ExerciseNotFoundException();
+        
+        var exerciseDto = _exerciseMapper.ToReadDto(exercise);
+
+        return exerciseDto;
+    }
+
+    // ---------------------------------------------------------------------- //
+
+    public async Task<IReadExerciseDto> CreateExerciseAsync(
+        CreateExerciseDto createExerciseDto
+    )
+    {
+        var exercise = _exerciseMapper.ToModel(createExerciseDto);
+        
+        exercise = await _exerciseRepository.Create(exercise);
         
         var exerciseDto = _exerciseMapper.ToReadDto(exercise);
 

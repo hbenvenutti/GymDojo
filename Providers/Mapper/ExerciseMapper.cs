@@ -1,4 +1,5 @@
 using AutoMapper;
+using GymAPI.Dtos.Request;
 using GymAPI.Dtos.Response;
 using GymAPI.Dtos.Response.interfaces;
 using GymAPI.Models;
@@ -16,6 +17,11 @@ public class ExerciseMapper : IExerciseMapper
     {
         _mapper = mapper;
     }
+
+    // ---------------------------------------------------------------------- //
+
+    public Exercise ToModel(CreateExerciseDto createExerciseDto) => 
+        _mapper.Map<Exercise>(createExerciseDto);
 
     // ---------------------------------------------------------------------- //
 

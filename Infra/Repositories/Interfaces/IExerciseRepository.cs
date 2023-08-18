@@ -6,4 +6,5 @@ public interface IExerciseRepository
 {
     ICollection<Exercise> List();
     Task<Exercise?> FindById(int id);
+    Task<Exercise> Create(Exercise exercise);
 }

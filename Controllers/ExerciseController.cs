@@ -1,3 +1,4 @@
+using GymAPI.Dtos.Request;
 using GymAPI.Dtos.Response;
 using GymAPI.Dtos.Response.interfaces;
 using GymAPI.Handlers;
@@ -55,6 +56,35 @@ public class ExerciseController : ControllerBase
             var exercise = await _exerciseService.GetExerciseAsync(id);
 
             return Ok(exercise);
+        }
+
+        catch (Exception exception)
+        {
+            return ControllerExceptionHandler.HandleException(exception);
+        }
+    }
+
+    // ---------------------------------------------------------------------- //
+
+    [HttpPost]
+    [ProducesResponseType(typeof(IReadExerciseDto), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
+
+    public async Task<IActionResult> CreateExercise(
+        [FromBody] CreateExerciseDto createExerciseDto
+    )
+    {
+        try
+        {
+            var exercise = await _exerciseService
+                .CreateExerciseAsync(createExerciseDto);
+
+            return CreatedAtAction(
+                nameof(GetById), 
+                new { id = exercise.Id }, 
+                exercise
+            );
         }
 
         catch (Exception exception)
