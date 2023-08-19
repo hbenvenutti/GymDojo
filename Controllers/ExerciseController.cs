@@ -30,14 +30,16 @@ public class ExerciseController : ControllerBase
     {
         try
         {
-            var exercises = _exerciseService.ListExercises();
+            var exercises = _exerciseService
+                .List();
 
             return Ok(exercises);
         }
 
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);
+            return ControllerExceptionHandler
+                .HandleException(exception);
         }
     }
 
@@ -53,14 +55,16 @@ public class ExerciseController : ControllerBase
     {
         try
         {
-            var exercise = await _exerciseService.GetExerciseAsync(id);
+            var exercise = await _exerciseService
+                .GetByIdAsync(id);
 
             return Ok(exercise);
         }
 
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);
+            return ControllerExceptionHandler
+                .HandleException(exception);
         }
     }
 
@@ -78,7 +82,7 @@ public class ExerciseController : ControllerBase
         try
         {
             var exercise = await _exerciseService
-                .CreateExerciseAsync(createExerciseDto);
+                .CreateAsync(createExerciseDto);
 
             return CreatedAtAction(
                 nameof(GetById), 
@@ -89,7 +93,8 @@ public class ExerciseController : ControllerBase
 
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);
+            return ControllerExceptionHandler
+                .HandleException(exception);
         }
     }
 
@@ -108,14 +113,15 @@ public class ExerciseController : ControllerBase
         try
         {
             var exercise = await _exerciseService
-                .UpdateExerciseAsync(id, updateExerciseDto);
+                .UpdateAsync(id, updateExerciseDto);
 
             return Ok(exercise);
         }
 
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);
+            return ControllerExceptionHandler
+                .HandleException(exception);
         }
     }
 
@@ -129,14 +135,16 @@ public class ExerciseController : ControllerBase
     {
         try
         {
-            await _exerciseService.DeleteExerciseAsync(id);
+            await _exerciseService
+                .DeleteByIdAsync(id);
 
             return NoContent();
         }
 
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);
+            return ControllerExceptionHandler
+                .HandleException(exception);
         }
     }
 }

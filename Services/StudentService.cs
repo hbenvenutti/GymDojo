@@ -26,7 +26,7 @@ public class StudentService : IStudentService
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<IReadStudentDto> CreateStudentAsync(
+    public async Task<IReadStudentDto> CreateAsync(
         CreateStudentDto createDto
     )
     {
@@ -46,7 +46,7 @@ public class StudentService : IStudentService
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<IReadStudentDto> GetStudentAsync(int studentId)
+    public async Task<IReadStudentDto> GetByIdAsync(int studentId)
     {
         var student = await _studentRepository
             .FindByIdAsync(studentId)
@@ -61,7 +61,7 @@ public class StudentService : IStudentService
 
     // ---------------------------------------------------------------------- //
 
-    public ICollection<ReadStudentDtoWithRelations> ListStudents()
+    public ICollection<ReadStudentDtoWithRelations> List()
     {
         var students = _studentRepository
             .List();
@@ -75,7 +75,7 @@ public class StudentService : IStudentService
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<IReadStudentDto> UpdateStudentAsync(
+    public async Task<IReadStudentDto> UpdateAsync(
         int studentId, 
         UpdateStudentDto updateDto
     )
@@ -84,24 +84,29 @@ public class StudentService : IStudentService
             .FindByIdAsync(studentId);
 
         if (student is null) 
-            return await CreateStudentAsync(
+            return await CreateAsync(
                 _mapper
                     .StudentMapper
                     .ToCreateDto(updateDto)
             );
 
-        student = _mapper.StudentMapper.ToExistentModel(updateDto, student);
+        student = _mapper
+            .StudentMapper
+            .ToExistentModel(updateDto, student);
 
-        await _studentRepository.UpdateAsync(student);
+        await _studentRepository
+            .UpdateAsync(student);
 
-        var studentDto = _mapper.StudentMapper.ToReadDtoWithRelations(student);
+        var studentDto = _mapper
+            .StudentMapper
+            .ToReadDtoWithRelations(student);
 
         return studentDto;
     }
 
     // ---------------------------------------------------------------------- //
 
-    public async Task DeleteStudentAsync(int studentId)
+    public async Task DeleteByIdAsync(int studentId)
     {
         var student = await _studentRepository
             .FindByIdAsync(studentId)

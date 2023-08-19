@@ -26,7 +26,7 @@ public class TrainingService : ITrainingService
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<IReadTrainingDto> CreateTrainingAsync(
+    public async Task<IReadTrainingDto> CreateAsync(
         CreateTrainingDto createDto
     )
     {
@@ -75,7 +75,7 @@ public class TrainingService : ITrainingService
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<IReadTrainingDto> UpdateTrainingAsync(
+    public async Task<IReadTrainingDto> UpdateAsync(
         int trainingId, 
         UpdateTrainingDto updateDto
     )
@@ -84,7 +84,7 @@ public class TrainingService : ITrainingService
             .FindByIdAsync(trainingId);
 
         if (training is null)
-            return await CreateTrainingAsync(
+            return await CreateAsync(
                 _mapper
                     .TrainingMapper
                     .ToCreateDto(updateDto)
@@ -106,7 +106,7 @@ public class TrainingService : ITrainingService
 
     // ---------------------------------------------------------------------- //
 
-    public async Task DeleteTrainingAsync(int trainingId)
+    public async Task DeleteByIdAsync(int trainingId)
     {
         var training = await _trainingRepository
             .FindByIdAsync(trainingId)
@@ -114,5 +114,19 @@ public class TrainingService : ITrainingService
 
         await _trainingRepository
             .DeleteAsync(training);
+    }
+
+    // ---------------------------------------------------------------------- //
+
+    public ICollection<ReadTrainingDtoWithRelations> List()
+    {
+        var trainings = _trainingRepository
+            .List();
+
+        var trainingsDto =_mapper
+            .TrainingMapper
+            .ToReadDtoWithRelationsCollection(trainings);
+
+        return trainingsDto;
     }
 }

@@ -31,14 +31,16 @@ public class StudentController : ControllerBase
     {
         try
         {
-            var students = _studentService.ListStudents();
+            var students = _studentService
+                .List();
 
             return Ok(students);
         }
 
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);
+            return ControllerExceptionHandler
+                .HandleException(exception);
         }
     }
 
@@ -54,14 +56,16 @@ public class StudentController : ControllerBase
     {
         try
         {
-            var student = await _studentService.GetStudentAsync(id);
+            var student = await _studentService
+                .GetByIdAsync(id);
 
             return Ok(student);
         }
 
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);
+            return ControllerExceptionHandler
+                .HandleException(exception);
         }
     }
 
@@ -76,7 +80,8 @@ public class StudentController : ControllerBase
     {
         try
         {
-            var student = await _studentService.CreateStudentAsync(dto);
+            var student = await _studentService
+                .CreateAsync(dto);
 
             return CreatedAtAction(
                 nameof(GetById), 
@@ -87,7 +92,8 @@ public class StudentController : ControllerBase
         
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);
+            return ControllerExceptionHandler
+                .HandleException(exception);
         }
     }
 
@@ -105,14 +111,16 @@ public class StudentController : ControllerBase
     {
         try
         {
-            var student = await _studentService.UpdateStudentAsync(id, dto);
+            var student = await _studentService
+                .UpdateAsync(id, dto);
 
             return Ok(student);
         }
 
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);
+            return ControllerExceptionHandler
+                .HandleException(exception);
         }
     }
 
@@ -128,14 +136,16 @@ public class StudentController : ControllerBase
     {
         try
         {
-            await _studentService.DeleteStudentAsync(id);
+            await _studentService
+                .DeleteByIdAsync(id);
 
             return NoContent();
         }
 
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);
+            return ControllerExceptionHandler
+                .HandleException(exception);
         }
     }
 }

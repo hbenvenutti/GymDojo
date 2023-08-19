@@ -26,7 +26,7 @@ public class ExerciseService : IExerciseService
 
     // ---------------------------------------------------------------------- //
 
-    public ICollection<ReadExerciseDto> ListExercises()
+    public ICollection<ReadExerciseDto> List()
     {
         var exercises = _exerciseRepository
             .List();
@@ -40,7 +40,7 @@ public class ExerciseService : IExerciseService
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<IReadExerciseDto> GetExerciseAsync(int exerciseId)
+    public async Task<IReadExerciseDto> GetByIdAsync(int exerciseId)
     {
         var exercise = await _exerciseRepository
             .FindByIdAsync(exerciseId) 
@@ -55,7 +55,7 @@ public class ExerciseService : IExerciseService
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<IReadExerciseDto> CreateExerciseAsync(
+    public async Task<IReadExerciseDto> CreateAsync(
         CreateExerciseDto createDto
     )
     {
@@ -75,7 +75,7 @@ public class ExerciseService : IExerciseService
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<IReadExerciseDto> UpdateExerciseAsync(
+    public async Task<IReadExerciseDto> UpdateAsync(
         int exerciseId, 
         UpdateExerciseDto updateDto
     )
@@ -84,7 +84,7 @@ public class ExerciseService : IExerciseService
             .FindByIdAsync(exerciseId);
 
         if (exercise is null) 
-            return await CreateExerciseAsync(
+            return await CreateAsync(
                 _mapper
                 .ExerciseMapper
                 .ToCreateDto(updateDto)
@@ -106,7 +106,7 @@ public class ExerciseService : IExerciseService
 
     // ---------------------------------------------------------------------- //
 
-    public async Task DeleteExerciseAsync(int exerciseId)
+    public async Task DeleteByIdAsync(int exerciseId)
     {
         var exercise = await _exerciseRepository
             .FindByIdAsync(exerciseId) 

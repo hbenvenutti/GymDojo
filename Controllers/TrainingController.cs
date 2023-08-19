@@ -31,13 +31,16 @@ public class TrainingController : ControllerBase
     {
         try
         {
-            var trainings = _trainingService.ListByStudent(id);
+            var trainings = _trainingService
+                .ListByStudent(id);
+
             return Ok(trainings);
         }
 
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);            
+            return ControllerExceptionHandler
+                .HandleException(exception);            
         }
     }
 
@@ -53,13 +56,16 @@ public class TrainingController : ControllerBase
     {
         try
         {
-            var training = await _trainingService.GetByIdAsync(trainingId);
+            var training = await _trainingService
+                .GetByIdAsync(trainingId);
+
             return Ok(training);
         }
 
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);            
+            return ControllerExceptionHandler
+                .HandleException(exception);            
         }
     }
 
@@ -70,12 +76,12 @@ public class TrainingController : ControllerBase
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorDto), StatusCodes.Status500InternalServerError)]
 
-    public async Task<IActionResult> Create([FromBody] CreateTrainingDto createTrainingDto)
+    public async Task<IActionResult> Create([FromBody] CreateTrainingDto createDto)
     {
         try
         {
             var training = await _trainingService
-                .CreateTrainingAsync(createTrainingDto);
+                .CreateAsync(createDto);
 
             return CreatedAtAction(
                 nameof(GetById), 
@@ -86,7 +92,8 @@ public class TrainingController : ControllerBase
 
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);            
+            return ControllerExceptionHandler
+                .HandleException(exception);            
         }
     }
 
@@ -99,20 +106,21 @@ public class TrainingController : ControllerBase
 
     public async Task<IActionResult> Update(
         [FromRoute] int trainingId, 
-        [FromBody] UpdateTrainingDto updateTrainingDto
+        [FromBody] UpdateTrainingDto updateDto
     )
     {
         try
         {
             var training = await _trainingService
-                .UpdateTrainingAsync(trainingId, updateTrainingDto);
+                .UpdateAsync(trainingId, updateDto);
 
             return Ok(training);
         }
 
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);            
+            return ControllerExceptionHandler
+                .HandleException(exception);            
         }
     }
 
@@ -128,14 +136,16 @@ public class TrainingController : ControllerBase
     {
         try
         {
-            await _trainingService.DeleteTrainingAsync(trainingId);
+            await _trainingService
+                .DeleteByIdAsync(trainingId);
             
             return NoContent();
         }
 
         catch (Exception exception)
         {
-            return ControllerExceptionHandler.HandleException(exception);            
+            return ControllerExceptionHandler
+                .HandleException(exception);            
         }
     }
 }
