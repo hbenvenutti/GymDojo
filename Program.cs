@@ -1,7 +1,7 @@
 using GymAPI.Infra.Database;
 using GymAPI.Infra.Repositories;
 using GymAPI.Infra.Repositories.Interfaces;
-using GymAPI.Providers.Mapper;
+using GymAPI.Providers.Mapper.AutoMapper.Implementations;
 using GymAPI.Providers.Mapper.Interfaces;
 using GymAPI.Services;
 using GymAPI.Services.Interfaces;
@@ -30,6 +30,8 @@ builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
 builder.Services.AddScoped<IExerciseService, ExerciseService>();
 builder.Services.AddScoped<IExerciseMapper, ExerciseMapper>();
 builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
+
+builder.Services.AddScoped<IMapperProvider, MapperProvider>();
 
 builder.Services.AddControllers();
 

@@ -5,7 +5,7 @@ using GymAPI.Dtos.Response.interfaces;
 using GymAPI.Models;
 using GymAPI.Providers.Mapper.Interfaces;
 
-namespace GymAPI.Providers.Mapper;
+namespace GymAPI.Providers.Mapper.AutoMapper.Implementations;
 
 public class TrainingMapper : ITrainingMapper
 {
@@ -20,13 +20,13 @@ public class TrainingMapper : ITrainingMapper
 
     // ---------------------------------------------------------------------- //
 
-    public Training ToTraining(CreateTrainingDto dto) =>
+    public Training ToModel(CreateTrainingDto dto) =>
         _mapper.Map<Training>(dto);
 
-    public Training ToTraining(UpdateTrainingDto dto) => 
+    public Training ToModel(UpdateTrainingDto dto) => 
         _mapper.Map<Training>(dto);
     
-    public Training ToTraining(UpdateTrainingDto dto, Training training) =>
+    public Training ToExistentModel(UpdateTrainingDto dto, Training training) =>
         _mapper.Map(dto, training);
 
     // ---------------------------------------------------------------------- //
@@ -39,8 +39,9 @@ public class TrainingMapper : ITrainingMapper
     public IReadTrainingDto ToReadDto(Training training) => 
         _mapper.Map<ReadTrainingDto>(training);
 
-    public ICollection<ReadTrainingDto> ToReadDtoCollection(ICollection<Training> trainings) => 
-        _mapper.Map<ICollection<ReadTrainingDto>>(trainings);
+    public ICollection<ReadTrainingDto> ToReadDtoCollection(
+        ICollection<Training> trainings
+    ) => _mapper.Map<ICollection<ReadTrainingDto>>(trainings);
 
     // ---------------------------------------------------------------------- //
 

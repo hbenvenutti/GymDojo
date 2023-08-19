@@ -3,7 +3,7 @@ using GymAPI.Dtos.Request;
 using GymAPI.Dtos.Response;
 using GymAPI.Models;
 
-namespace GymAPI.Providers.Mapper.Profiles;
+namespace GymAPI.Providers.Mapper.AutoMapper.Profiles;
 
 public class ExerciseProfile : Profile
 {

@@ -11,38 +11,44 @@ namespace GymAPI.Services;
 public class ExerciseService : IExerciseService
 {
     private readonly IExerciseRepository _exerciseRepository;
-    private readonly IExerciseMapper _exerciseMapper;
+    private readonly IMapperProvider _mapper;
 
     // ---------------------------------------------------------------------- //
 
     public ExerciseService(
         IExerciseRepository exerciseRepository, 
-        IExerciseMapper exerciseMapper
+        IMapperProvider mapper
     )
     {
         _exerciseRepository = exerciseRepository;
-        _exerciseMapper = exerciseMapper;
+        _mapper = mapper;
     }
 
     // ---------------------------------------------------------------------- //
 
     public ICollection<ReadExerciseDto> ListExercises()
     {
-        var exercises = _exerciseRepository.List();
+        var exercises = _exerciseRepository
+            .List();
         
-        var exercisesDto = _exerciseMapper.ToReadDtoCollection(exercises);
+        var exercisesDto = _mapper
+            .ExerciseMapper
+            .ToReadDtoCollection(exercises);
 
         return exercisesDto;
     }
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<IReadExerciseDto> GetExerciseAsync(int id)
+    public async Task<IReadExerciseDto> GetExerciseAsync(int exerciseId)
     {
-        var exercise = await _exerciseRepository.FindByIdAsync(id) 
+        var exercise = await _exerciseRepository
+            .FindByIdAsync(exerciseId) 
             ?? throw new ExerciseNotFoundException();
         
-        var exerciseDto = _exerciseMapper.ToReadDto(exercise);
+        var exerciseDto = _mapper
+            .ExerciseMapper
+            .ToReadDto(exercise);
 
         return exerciseDto;
     }
@@ -50,14 +56,19 @@ public class ExerciseService : IExerciseService
     // ---------------------------------------------------------------------- //
 
     public async Task<IReadExerciseDto> CreateExerciseAsync(
-        CreateExerciseDto createExerciseDto
+        CreateExerciseDto createDto
     )
     {
-        var exercise = _exerciseMapper.ToModel(createExerciseDto);
+        var exercise = _mapper
+            .ExerciseMapper
+            .ToModel(createDto);
         
-        exercise = await _exerciseRepository.CreateAsync(exercise);
+        exercise = await _exerciseRepository
+            .CreateAsync(exercise);
         
-        var exerciseDto = _exerciseMapper.ToReadDto(exercise);
+        var exerciseDto = _mapper
+            .ExerciseMapper
+            .ToReadDto(exercise);
 
         return exerciseDto;
     }
@@ -65,34 +76,44 @@ public class ExerciseService : IExerciseService
     // ---------------------------------------------------------------------- //
 
     public async Task<IReadExerciseDto> UpdateExerciseAsync(
-        int id, 
-        UpdateExerciseDto updateExerciseDto
+        int exerciseId, 
+        UpdateExerciseDto updateDto
     )
     {
-        var exercise = await _exerciseRepository.FindByIdAsync(id);
+        var exercise = await _exerciseRepository
+            .FindByIdAsync(exerciseId);
 
         if (exercise is null) 
             return await CreateExerciseAsync(
-                _exerciseMapper.ToCreateDto(updateExerciseDto)
+                _mapper
+                .ExerciseMapper
+                .ToCreateDto(updateDto)
             );
         
-        exercise = _exerciseMapper.ToModel(updateExerciseDto, exercise);
+        exercise = _mapper
+            .ExerciseMapper
+            .ToExistentModel(updateDto, exercise);
         
-        exercise = await _exerciseRepository.UpdateAsync(exercise);
+        exercise = await _exerciseRepository
+            .UpdateAsync(exercise);
         
-        var exerciseDto = _exerciseMapper.ToReadDto(exercise);
+        var exerciseDto = _mapper
+            .ExerciseMapper
+            .ToReadDto(exercise);
 
         return exerciseDto;
     }
 
     // ---------------------------------------------------------------------- //
 
-    public async Task DeleteExerciseAsync(int id)
+    public async Task DeleteExerciseAsync(int exerciseId)
     {
-        var exercise = await _exerciseRepository.FindByIdAsync(id) 
+        var exercise = await _exerciseRepository
+            .FindByIdAsync(exerciseId) 
             ?? throw new ExerciseNotFoundException();
         
-        await _exerciseRepository.DeleteAsync(exercise);
+        await _exerciseRepository
+            .DeleteAsync(exercise);
 
         return;
     }

@@ -5,11 +5,13 @@ using GymAPI.Dtos.Response.interfaces;
 using GymAPI.Models;
 using GymAPI.Providers.Mapper.Interfaces;
 
-namespace GymAPI.Providers.Mapper;
+namespace GymAPI.Providers.Mapper.AutoMapper.Implementations;
 
 public class StudentMapper : IStudentMapper
 {
     private readonly IMapper _mapper;
+
+    // ---------------------------------------------------------------------- //
 
     public StudentMapper(IMapper mapper)
     {
@@ -18,13 +20,13 @@ public class StudentMapper : IStudentMapper
 
     // ---------------------------------------------------------------------- //
 
-    public Student ToStudent(CreateStudentDto dto) => _mapper.Map<Student>(dto);
+    public Student ToModel(CreateStudentDto dto) => _mapper.Map<Student>(dto);
 
-    public Student ToStudent(UpdateStudentDto dto) => _mapper.Map<Student>(dto);
+    public Student ToModel(UpdateStudentDto dto) => _mapper.Map<Student>(dto);
 
     // ---------------------------------------------------------------------- //
 
-    public Student UpdateStudent(UpdateStudentDto dto, Student student) =>
+    public Student ToExistentModel(UpdateStudentDto dto, Student student) =>
         _mapper.Map(dto, student);
 
     public CreateStudentDto ToCreateDto(UpdateStudentDto dto) =>
@@ -43,7 +45,6 @@ public class StudentMapper : IStudentMapper
 
     public IReadStudentDto ToReadDtoWithRelations(Student student) =>
         _mapper.Map<ReadStudentDtoWithRelations>(student);
-
 
     public ICollection<ReadStudentDtoWithRelations> ToReadDtoWithRelationsCollection(
         ICollection<Student> students

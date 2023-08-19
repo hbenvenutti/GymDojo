@@ -11,17 +11,17 @@ namespace GymAPI.Services;
 public class TrainingService : ITrainingService
 {
     private readonly ITrainingRepository _trainingRepository;
-    private readonly ITrainingMapper _trainingMapper;
+    private readonly IMapperProvider _mapper;
 
     // ---------------------------------------------------------------------- //
 
     public TrainingService(
-        ITrainingMapper trainingMapper, 
-        ITrainingRepository trainingRepository
+        ITrainingRepository trainingRepository,
+        IMapperProvider mapper 
     )
     {
-        _trainingMapper = trainingMapper;
         _trainingRepository = trainingRepository;
+        _mapper = mapper;
     }
 
     // ---------------------------------------------------------------------- //
@@ -30,12 +30,16 @@ public class TrainingService : ITrainingService
         CreateTrainingDto createDto
     )
     {
-        var training = _trainingMapper.
-            ToTraining(createDto);
+        var training = _mapper
+            .TrainingMapper
+            .ToModel(createDto);
     
-        training = await _trainingRepository.CreateAsync(training);
+        training = await _trainingRepository
+            .CreateAsync(training);
 
-        var trainingDto =_trainingMapper.ToReadDtoWithRelations(training);
+        var trainingDto =_mapper
+            .TrainingMapper
+            .ToReadDtoWithRelations(training);
 
         return trainingDto;
     }
@@ -44,10 +48,13 @@ public class TrainingService : ITrainingService
 
     public async Task<IReadTrainingDto> GetByIdAsync(int trainingId)
     {
-        var training = await _trainingRepository.FindByIdAsync(trainingId)
+        var training = await _trainingRepository
+            .FindByIdAsync(trainingId)
             ?? throw new TrainingNotFoundException();
 
-        var trainingDto =_trainingMapper.ToReadDtoWithRelations(training);
+        var trainingDto =_mapper
+            .TrainingMapper
+            .ToReadDtoWithRelations(training);
 
         return trainingDto;
     }
@@ -56,9 +63,11 @@ public class TrainingService : ITrainingService
 
     public ICollection<ReadTrainingDto> ListByStudent(int studentId)
     {
-        var trainings = _trainingRepository.FindByStudent(studentId);
+        var trainings = _trainingRepository
+            .FindByStudent(studentId);
 
-        var trainingsDto =_trainingMapper
+        var trainingsDto =_mapper
+            .TrainingMapper
             .ToReadDtoCollection(trainings);
 
         return trainingsDto;
@@ -71,16 +80,26 @@ public class TrainingService : ITrainingService
         UpdateTrainingDto updateDto
     )
     {
-        var training = await _trainingRepository.FindByIdAsync(trainingId);
+        var training = await _trainingRepository
+            .FindByIdAsync(trainingId);
 
         if (training is null)
-            return await CreateTrainingAsync(_trainingMapper.ToCreateDto(updateDto));
+            return await CreateTrainingAsync(
+                _mapper
+                    .TrainingMapper
+                    .ToCreateDto(updateDto)
+            );
             
-        training = _trainingMapper.ToTraining(updateDto, training);
+        training = _mapper
+            .TrainingMapper
+            .ToExistentModel(updateDto, training);
 
-        training = await _trainingRepository.UpdateAsync(training);
+        training = await _trainingRepository
+            .UpdateAsync(training);
 
-        var trainingDto =_trainingMapper.ToReadDtoWithRelations(training);
+        var trainingDto =_mapper
+            .TrainingMapper
+            .ToReadDtoWithRelations(training);
 
         return trainingDto;
     }
@@ -89,9 +108,11 @@ public class TrainingService : ITrainingService
 
     public async Task DeleteTrainingAsync(int trainingId)
     {
-        var training = await _trainingRepository.FindByIdAsync(trainingId)
+        var training = await _trainingRepository
+            .FindByIdAsync(trainingId)
             ?? throw new TrainingNotFoundException();
 
-        await _trainingRepository.DeleteAsync(training);
+        await _trainingRepository
+            .DeleteAsync(training);
     }
 }

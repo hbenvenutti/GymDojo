@@ -5,18 +5,15 @@ using GymAPI.Models;
 
 namespace GymAPI.Providers.Mapper.Interfaces;
 
-public interface IStudentMapper
+public interface IStudentMapper : 
+    IModelMapper<
+        Student, 
+        CreateStudentDto, 
+        UpdateStudentDto, 
+        IReadStudentDto, 
+        ReadStudentDto
+    >
 {
-    Student ToStudent(CreateStudentDto dto);
-    Student ToStudent(UpdateStudentDto dto);
-    Student UpdateStudent(UpdateStudentDto dto, Student student);
-
-    CreateStudentDto ToCreateDto(UpdateStudentDto dto);
-
-    IReadStudentDto ToReadDto(Student student);
-
-    ICollection<ReadStudentDto> ToReadDtoCollection(ICollection<Student> students);
-
     IReadStudentDto ToReadDtoWithRelations(Student student);
 
     ICollection<ReadStudentDtoWithRelations> ToReadDtoWithRelationsCollection(

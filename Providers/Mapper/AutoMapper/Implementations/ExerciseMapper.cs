@@ -5,7 +5,7 @@ using GymAPI.Dtos.Response.interfaces;
 using GymAPI.Models;
 using GymAPI.Providers.Mapper.Interfaces;
 
-namespace GymAPI.Providers.Mapper;
+namespace GymAPI.Providers.Mapper.AutoMapper.Implementations;
 
 public class ExerciseMapper : IExerciseMapper
 {
@@ -26,8 +26,14 @@ public class ExerciseMapper : IExerciseMapper
     public Exercise ToModel(UpdateExerciseDto updateExerciseDto) =>
         _mapper.Map<Exercise>(updateExerciseDto);
 
-    public Exercise ToModel(UpdateExerciseDto updateExerciseDto, Exercise exercise) =>
-        _mapper.Map(updateExerciseDto, exercise);
+    // ---------------------------------------------------------------------- //
+
+    public Exercise ToExistentModel(
+        UpdateExerciseDto updateExerciseDto, 
+        Exercise exercise
+    ) => _mapper.Map(updateExerciseDto, exercise);
+
+    // ---------------------------------------------------------------------- //
 
     public CreateExerciseDto ToCreateDto(
         UpdateExerciseDto updateExerciseDto
@@ -38,6 +44,8 @@ public class ExerciseMapper : IExerciseMapper
     public IReadExerciseDto ToReadDto(Exercise exercise) => 
         _mapper.Map<ReadExerciseDto>(exercise);
 
+    // ---------------------------------------------------------------------- //
+    
     public ICollection<ReadExerciseDto> ToReadDtoCollection(
         ICollection<Exercise> exercises
     ) => _mapper.Map<ICollection<ReadExerciseDto>>(exercises);

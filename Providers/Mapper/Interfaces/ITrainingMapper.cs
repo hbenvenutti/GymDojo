@@ -5,17 +5,17 @@ using GymAPI.Models;
 
 namespace GymAPI.Providers.Mapper.Interfaces;
 
-public interface ITrainingMapper
+public interface ITrainingMapper : 
+    IModelMapper<
+        Training, 
+        CreateTrainingDto, 
+        UpdateTrainingDto, 
+        IReadTrainingDto, 
+        ReadTrainingDto
+    >
 {
-    Training ToTraining(CreateTrainingDto dto);
-    Training ToTraining(UpdateTrainingDto dto);
-    Training ToTraining(UpdateTrainingDto dto, Training training);
-
-    CreateTrainingDto ToCreateDto(UpdateTrainingDto dto);
-
-    IReadTrainingDto ToReadDto(Training training);
-    ICollection<ReadTrainingDto> ToReadDtoCollection(ICollection<Training> trainings);
-
     IReadTrainingDto ToReadDtoWithRelations(Training training);
-    ICollection<ReadTrainingDtoWithRelations> ToReadDtoWithRelationsCollection(ICollection<Training> trainings);
+    ICollection<ReadTrainingDtoWithRelations> ToReadDtoWithRelationsCollection(
+        ICollection<Training> trainings
+    );
 }

@@ -11,40 +11,50 @@ namespace GymAPI.Services;
 public class StudentService : IStudentService
 {
     private readonly IStudentRepository _studentRepository;
-    private readonly IStudentMapper _studentMapper;
+    private readonly IMapperProvider _mapper;
 
     // ---------------------------------------------------------------------- //
 
     public StudentService(
         IStudentRepository studentRepository, 
-        IStudentMapper studentMapper
+        IMapperProvider mapper
     )
     {
         _studentRepository = studentRepository;
-        _studentMapper = studentMapper;
+        _mapper = mapper;
     }
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<IReadStudentDto> CreateStudentAsync(CreateStudentDto dto)
+    public async Task<IReadStudentDto> CreateStudentAsync(
+        CreateStudentDto createDto
+    )
     {
-        var student = _studentMapper.ToStudent(dto);
+        var student = _mapper
+            .StudentMapper
+            .ToModel(createDto);
 
-        student = await _studentRepository.CreateAsync(student);
+        student = await _studentRepository
+            .CreateAsync(student);
 
-        var studentDto = _studentMapper.ToReadDto(student);
+        var studentDto = _mapper
+            .StudentMapper
+            .ToReadDto(student);
 
         return studentDto;
     }
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<IReadStudentDto> GetStudentAsync(int id)
+    public async Task<IReadStudentDto> GetStudentAsync(int studentId)
     {
-        var student = await _studentRepository.FindByIdAsync(id)
+        var student = await _studentRepository
+            .FindByIdAsync(studentId)
             ?? throw new StudentNotFoundException();
 
-        var dto = _studentMapper.ToReadDtoWithRelations(student);
+        var dto = _mapper
+            .StudentMapper
+            .ToReadDtoWithRelations(student);
 
         return dto;
     }
@@ -53,39 +63,52 @@ public class StudentService : IStudentService
 
     public ICollection<ReadStudentDtoWithRelations> ListStudents()
     {
-        var students = _studentRepository.List();
+        var students = _studentRepository
+            .List();
 
-        var dto = _studentMapper.ToReadDtoWithRelationsCollection(students);
+        var dto = _mapper
+            .StudentMapper
+            .ToReadDtoWithRelationsCollection(students);
 
         return dto;
     }
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<IReadStudentDto> UpdateStudentAsync(int id, UpdateStudentDto dto)
+    public async Task<IReadStudentDto> UpdateStudentAsync(
+        int studentId, 
+        UpdateStudentDto updateDto
+    )
     {
-        var student = await _studentRepository.FindByIdAsync(id);
+        var student = await _studentRepository
+            .FindByIdAsync(studentId);
 
         if (student is null) 
-            return await CreateStudentAsync(_studentMapper.ToCreateDto(dto));
+            return await CreateStudentAsync(
+                _mapper
+                    .StudentMapper
+                    .ToCreateDto(updateDto)
+            );
 
-        student = _studentMapper.UpdateStudent(dto, student);
+        student = _mapper.StudentMapper.ToExistentModel(updateDto, student);
 
         await _studentRepository.UpdateAsync(student);
 
-        var studentDto = _studentMapper.ToReadDtoWithRelations(student);
+        var studentDto = _mapper.StudentMapper.ToReadDtoWithRelations(student);
 
         return studentDto;
     }
 
     // ---------------------------------------------------------------------- //
 
-    public async Task DeleteStudentAsync(int id)
+    public async Task DeleteStudentAsync(int studentId)
     {
-        var student = await _studentRepository.FindByIdAsync(id)
+        var student = await _studentRepository
+            .FindByIdAsync(studentId)
             ?? throw new StudentNotFoundException();
 
-        await _studentRepository.DeleteAsync(student);
+        await _studentRepository
+            .DeleteAsync(student);
 
         return;
     }
