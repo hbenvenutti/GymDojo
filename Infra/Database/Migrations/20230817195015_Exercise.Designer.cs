@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace GymAPI.Migrations
+namespace GymAPI.Infra.Database.Migrations
 {
     [DbContext(typeof(APIContext))]
     [Migration("20230817195015_Exercise")]

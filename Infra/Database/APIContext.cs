@@ -1,6 +1,9 @@
-using GymAPI.Infra.Database.Config;
-using GymAPI.Models;
 using Microsoft.EntityFrameworkCore;
+
+using GymAPI.Infra.Database.Config;
+using GymAPI.Domains.Students;
+using GymAPI.Domains.Trainings;
+using GymAPI.Domains.Exercises;
 
 namespace GymAPI.Infra.Database;
 

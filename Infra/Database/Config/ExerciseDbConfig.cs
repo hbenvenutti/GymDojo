@@ -1,4 +1,4 @@
-using GymAPI.Models;
+using GymAPI.Domains.Exercises;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

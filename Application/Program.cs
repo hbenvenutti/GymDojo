@@ -1,21 +1,19 @@
-using GymAPI.Infra.Database;
+using GymAPI.Bootstrap.Database;
 using GymAPI.Infra.Repositories;
 using GymAPI.Infra.Repositories.Interfaces;
 using GymAPI.Providers.Mapper.AutoMapper.Implementations;
 using GymAPI.Providers.Mapper.Interfaces;
 using GymAPI.Services;
 using GymAPI.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration
-    .GetConnectionString("DefaultConnection");
+DatabaseStarter.Start(builder.Services, builder.Configuration);
 
-builder.Services
-    .AddDbContext<APIContext>(options => options
-        .UseSqlServer(connectionString)
-    );
+// builder.Services
+//     .AddDbContext<APIContext>(options => options
+//         .UseSqlServer(connectionString)
+//     );
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

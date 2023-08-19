@@ -1,6 +1,6 @@
-using System.Text.Json.Serialization;
+using GymAPI.Domains.Students;
 
-namespace GymAPI.Models;
+namespace GymAPI.Domains.Trainings;
 
 public class Training
 {
@@ -9,7 +9,6 @@ public class Training
     
     public required string Name { get; set; }
 
-    [JsonIgnore]
     public required Student Student { get; set; }
     
     // public ICollection<ExerciseDetail> ExerciseDetails { get; set; } 

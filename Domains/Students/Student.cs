@@ -1,6 +1,6 @@
-using System.Text.Json.Serialization;
+using GymAPI.Domains.Trainings;
 
-namespace GymAPI.Models;
+namespace GymAPI.Domains.Students;
 
 public class Student
 {
@@ -18,7 +18,6 @@ public class Student
     public double AbdomenCircumference { get; set; }
     public double ChestCircumference { get; set; }
 
-    [JsonIgnore]
     public ICollection<Training> Trainings { get; set; }
 
     // ---------------------------------------------------------------------- //

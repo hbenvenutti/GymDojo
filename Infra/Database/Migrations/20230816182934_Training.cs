@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace GymAPI.Migrations
+namespace GymAPI.Infra.Database.Migrations
 {
     /// <inheritdoc />
     public partial class Training : Migration

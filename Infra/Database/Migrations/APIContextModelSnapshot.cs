@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace GymAPI.Migrations
+namespace GymAPI.Infra.Database.Migrations
 {
     [DbContext(typeof(APIContext))]
     partial class APIContextModelSnapshot : ModelSnapshot
