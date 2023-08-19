@@ -39,7 +39,7 @@ public class ExerciseService : IExerciseService
 
     public async Task<IReadExerciseDto> GetExerciseAsync(int id)
     {
-        var exercise = await _exerciseRepository.FindById(id) 
+        var exercise = await _exerciseRepository.FindByIdAsync(id) 
             ?? throw new ExerciseNotFoundException();
         
         var exerciseDto = _exerciseMapper.ToReadDto(exercise);
@@ -55,7 +55,7 @@ public class ExerciseService : IExerciseService
     {
         var exercise = _exerciseMapper.ToModel(createExerciseDto);
         
-        exercise = await _exerciseRepository.Create(exercise);
+        exercise = await _exerciseRepository.CreateAsync(exercise);
         
         var exerciseDto = _exerciseMapper.ToReadDto(exercise);
 
@@ -69,7 +69,7 @@ public class ExerciseService : IExerciseService
         UpdateExerciseDto updateExerciseDto
     )
     {
-        var exercise = await _exerciseRepository.FindById(id);
+        var exercise = await _exerciseRepository.FindByIdAsync(id);
 
         if (exercise is null) 
             return await CreateExerciseAsync(
@@ -78,7 +78,7 @@ public class ExerciseService : IExerciseService
         
         exercise = _exerciseMapper.ToModel(updateExerciseDto, exercise);
         
-        exercise = await _exerciseRepository.Update(exercise);
+        exercise = await _exerciseRepository.UpdateAsync(exercise);
         
         var exerciseDto = _exerciseMapper.ToReadDto(exercise);
 
@@ -89,10 +89,10 @@ public class ExerciseService : IExerciseService
 
     public async Task DeleteExerciseAsync(int id)
     {
-        var exercise = await _exerciseRepository.FindById(id) 
+        var exercise = await _exerciseRepository.FindByIdAsync(id) 
             ?? throw new ExerciseNotFoundException();
         
-        await _exerciseRepository.Delete(exercise);
+        await _exerciseRepository.DeleteAsync(exercise);
 
         return;
     }

@@ -1,6 +1,7 @@
 using GymAPI.Infra.Database;
 using GymAPI.Infra.Repositories.Interfaces;
 using GymAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GymAPI.Infra.Repositories;
 
@@ -26,7 +27,7 @@ public class ExerciseRepository : IExerciseRepository
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<Exercise?> FindById(int id)
+    public async Task<Exercise?> FindByIdAsync(int id)
     {
         var exercise = await _context.Exercises.FindAsync(id);
 
@@ -35,7 +36,7 @@ public class ExerciseRepository : IExerciseRepository
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<Exercise> Create(Exercise exercise)
+    public async Task<Exercise> CreateAsync(Exercise exercise)
     {
         await _context.Exercises.AddAsync(exercise);
         await _context.SaveChangesAsync();
@@ -45,7 +46,7 @@ public class ExerciseRepository : IExerciseRepository
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<Exercise> Update(Exercise exercise)
+    public async Task<Exercise> UpdateAsync(Exercise exercise)
     {
         _context.Exercises.Update(exercise);
         await _context.SaveChangesAsync();
@@ -55,12 +56,19 @@ public class ExerciseRepository : IExerciseRepository
 
     // ---------------------------------------------------------------------- //
 
-    public async Task Delete(Exercise exercise)
+    public async Task DeleteAsync(Exercise exercise)
     {
         _context.Exercises.Remove(exercise);
 
         await _context.SaveChangesAsync();
 
         return;
+    }
+
+    // ---------------------------------------------------------------------- //
+
+    public async Task<bool> Exists(int id)
+    {
+        return await _context.Exercises.AnyAsync(exercise => exercise.Id == id);
     }
 }

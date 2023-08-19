@@ -30,7 +30,7 @@ public class StudentService : IStudentService
     {
         var student = _studentMapper.ToStudent(dto);
 
-        student = await _studentRepository.Create(student);
+        student = await _studentRepository.CreateAsync(student);
 
         var studentDto = _studentMapper.ToReadDto(student);
 
@@ -41,7 +41,7 @@ public class StudentService : IStudentService
 
     public async Task<IReadStudentDto> GetStudentAsync(int id)
     {
-        var student = await _studentRepository.FindById(id)
+        var student = await _studentRepository.FindByIdAsync(id)
             ?? throw new StudentNotFoundException();
 
         var dto = _studentMapper.ToReadDtoWithRelations(student);
@@ -64,14 +64,14 @@ public class StudentService : IStudentService
 
     public async Task<IReadStudentDto> UpdateStudentAsync(int id, UpdateStudentDto dto)
     {
-        var student = await _studentRepository.FindById(id);
+        var student = await _studentRepository.FindByIdAsync(id);
 
         if (student is null) 
             return await CreateStudentAsync(_studentMapper.ToCreateDto(dto));
 
         student = _studentMapper.UpdateStudent(dto, student);
 
-        await _studentRepository.Update(student);
+        await _studentRepository.UpdateAsync(student);
 
         var studentDto = _studentMapper.ToReadDtoWithRelations(student);
 
@@ -82,10 +82,10 @@ public class StudentService : IStudentService
 
     public async Task DeleteStudentAsync(int id)
     {
-        var student = await _studentRepository.FindById(id)
+        var student = await _studentRepository.FindByIdAsync(id)
             ?? throw new StudentNotFoundException();
 
-        await _studentRepository.Delete(student);
+        await _studentRepository.DeleteAsync(student);
 
         return;
     }

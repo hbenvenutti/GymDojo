@@ -33,7 +33,6 @@ public class TrainingService : ITrainingService
         var training = _trainingMapper.
             ToTraining(createDto);
     
-
         training = await _trainingRepository.CreateAsync(training);
 
         var trainingDto =_trainingMapper.ToReadDtoWithRelations(training);
@@ -59,7 +58,8 @@ public class TrainingService : ITrainingService
     {
         var trainings = _trainingRepository.FindByStudent(studentId);
 
-        var trainingsDto =_trainingMapper.ToReadDtoCollection(trainings);
+        var trainingsDto =_trainingMapper
+            .ToReadDtoCollection(trainings);
 
         return trainingsDto;
     }

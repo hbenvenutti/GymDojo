@@ -18,7 +18,7 @@ public class StudentRepository : IStudentRepository
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<Student> Create(Student student)
+    public async Task<Student> CreateAsync(Student student)
     {
         await _context.Students.AddAsync(student);
 
@@ -29,7 +29,7 @@ public class StudentRepository : IStudentRepository
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<Student?> FindById(int id)
+    public async Task<Student?> FindByIdAsync(int id)
     {
         return await _context.Students.FindAsync(id);
     }
@@ -46,7 +46,7 @@ public class StudentRepository : IStudentRepository
 
     // ---------------------------------------------------------------------- //
 
-    public async Task<Student> Update(Student student)
+    public async Task<Student> UpdateAsync(Student student)
     {
         _context.Students.Update(student);
 
@@ -57,14 +57,14 @@ public class StudentRepository : IStudentRepository
 
     // ---------------------------------------------------------------------- //
 
-    public bool Exists(int id)
+    public async Task<bool> Exists(int id)
     {
-        return _context.Students.Any(student => student.Id == id);
+        return await _context.Students.AnyAsync(student => student.Id == id);
     }
 
     // ---------------------------------------------------------------------- //
 
-    public async Task Delete(Student student)
+    public async Task DeleteAsync(Student student)
     {
         _context.Students.Remove(student);
 

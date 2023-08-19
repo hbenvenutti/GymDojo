@@ -87,4 +87,20 @@ public class TrainingRepository : ITrainingRepository
 
         await _context.SaveChangesAsync();
     }
+
+    // ---------------------------------------------------------------------- //
+
+    public async Task<bool> Exists(int id)
+    {
+        return await _context
+            .Trainings
+            .AnyAsync(training => training.Id == id);
+    }
+
+    // ---------------------------------------------------------------------- //
+
+    public ICollection<Training> List()
+    {
+        throw new NotImplementedException();
+    }
 }
