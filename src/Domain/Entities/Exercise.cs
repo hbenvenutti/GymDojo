@@ -1,4 +1,4 @@
-namespace GymAPI.Domains.Exercises;
+namespace GymDojo.Domain.Entities;
 
 public class Exercise
 {

@@ -1,6 +1,4 @@
-using GymAPI.Domains.Students;
-
-namespace GymAPI.Domains.Trainings;
+namespace GymDojo.Domain.Entities;
 
 public class Training
 {
