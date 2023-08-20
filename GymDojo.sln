@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymAPI", "GymAPI.csproj", "{E377CB3B-1A9C-4F7C-B6F9-91DBE78A68A5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra", "src\Infra\Infra.csproj", "{FB2CBF86-5368-4E7D-B8A4-3A6815B63240}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra", "Infra\Infra.csproj", "{FB2CBF86-5368-4E7D-B8A4-3A6815B63240}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Domain\Domain.csproj", "{C2301B92-986A-4563-BA21-F0873022E607}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domains", "Domains\Domains.csproj", "{C2301B92-986A-4563-BA21-F0873022E607}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Application\Application.csproj", "{1F709773-01F7-4E6E-A385-982CC60DA1EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{1F709773-01F7-4E6E-A385-982CC60DA1EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrap", "src\Bootstrap\Bootstrap.csproj", "{80528D53-F08A-4A78-9F30-25C4BF540142}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrap", "Bootstrap\Bootstrap.csproj", "{80528D53-F08A-4A78-9F30-25C4BF540142}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "src\API\API.csproj", "{80904A34-834A-4B22-A27F-D81501FCC8EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +39,10 @@ Global
 		{80528D53-F08A-4A78-9F30-25C4BF540142}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80528D53-F08A-4A78-9F30-25C4BF540142}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80528D53-F08A-4A78-9F30-25C4BF540142}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80904A34-834A-4B22-A27F-D81501FCC8EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80904A34-834A-4B22-A27F-D81501FCC8EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80904A34-834A-4B22-A27F-D81501FCC8EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80904A34-834A-4B22-A27F-D81501FCC8EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
