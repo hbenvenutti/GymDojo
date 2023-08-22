@@ -1,5 +1,5 @@
 {
-    "dotnet.defaultSolution": "GymAPI.sln",
+    "dotnet.defaultSolution": "GymDojo.sln",
     "cSpell.words": [
         "alunos",
         "exercicios",

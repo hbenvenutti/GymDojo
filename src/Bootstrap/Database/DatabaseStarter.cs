@@ -1,9 +1,9 @@
-using GymAPI.Infra.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using GymDojo.Infra.Database;
 
-namespace GymAPI.Bootstrap.Database;
+namespace GymDojo.Bootstrap.Database;
 
 public static class DatabaseStarter
 {
